@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DemoBookApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DemoBookApp.Data
 {
@@ -8,9 +9,24 @@ namespace DemoBookApp.Data
         {
 
         }
-        //desired OnModelCreating implementation
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AuthorModel>()
+                .Property(u => u.Gender)
+                .HasConversion<int>();
 
-        //desired DbSets for tables creation
+            modelBuilder.Entity<BookModel>()
+                .HasOne(s => s.Author)
+                .WithMany(s => s.Books)
+                .HasForeignKey(s => s.AuthorID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+        }
+
+        public DbSet<BookModel> Books { get; set; }
+        public DbSet<AuthorModel> Author { get; set; } 
+
+
 
     }
 }
