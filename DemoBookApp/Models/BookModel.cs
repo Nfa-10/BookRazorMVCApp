@@ -11,7 +11,7 @@ namespace DemoBookApp.Models
 
         [Required(ErrorMessage = "Title is required")]
         [StringLength(30, MinimumLength = 4, ErrorMessage = "Title must be within 4-30 characters")]
-        public string? Title { get; set; }
+        public string Title { get; set; }
 
         [Required(ErrorMessage = "Edition is required")]
         [Range(1,30, ErrorMessage = "Range must be with 1-30")]
