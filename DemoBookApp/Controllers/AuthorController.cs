@@ -137,10 +137,7 @@ namespace DemoBookApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            if (_context.Author == null)
-            {
-                return Problem("There is no model database.");
-            }
+
             var authorModel = await _context.Author.FindAsync(id);
             if (authorModel != null)
             {
