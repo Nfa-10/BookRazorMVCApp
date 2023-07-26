@@ -4,11 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h4> Add New Book</h4>
+<form>
+    <input asp-action="Create" type="submit" value="Create" class="btn btn-outline-primary" />
+</form>
+<br />
+<h1>List of Books</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -49,9 +51,11 @@
                 @Html.DisplayFor(modelItem => item.Author.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.BookId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BookId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BookId">Delete</a>
+                <form>
+                        <input asp-action="Edit" asp-route-id="@item.BookId" type="submit" value="Edit" class="btn btn-dark" /> |
+                        <input asp-action="Details" asp-route-id="@item.BookId" type="submit" value="Show Details" class="btn btn-primary" /> |
+                        <input asp-action="Delete" asp-route-id="@item.BookId" type="submit" value="Delete" class="btn btn-danger" /> |
+                </form>
             </td>
         </tr>
 }
