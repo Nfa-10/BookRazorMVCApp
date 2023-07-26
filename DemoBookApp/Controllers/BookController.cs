@@ -50,13 +50,13 @@ namespace DemoBookApp.Controllers
         {
             ViewData["AuthorID"] = new SelectList(_context.Author, "Id", "Name");
             return View();
+
         }
 
         // POST: Book/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookId,Title,Edition,Price,dateOfPublishing,AuthorID")] BookModel bookModel)
         {
             if (ModelState.IsValid)
@@ -156,14 +156,14 @@ namespace DemoBookApp.Controllers
             {
                 _context.Books.Remove(bookModel);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BookModelExists(Guid id)
         {
-          return (_context.Books?.Any(e => e.BookId == id)).GetValueOrDefault();
+            return (_context.Books?.Any(e => e.BookId == id)).GetValueOrDefault();
         }
     }
 }
