@@ -1,7 +1,9 @@
 ﻿@model DemoBookApp.Models.AuthorModel
 @{
     ViewData["Title"] = "Delete";
-    var temp = (Model.Gender == 1 ? "Male" : "Female");
+    var temp = (DemoBookApp.Enums.Gender)Model.Gender;
+
+
 }
 
 <h2>Delete Record</h2>

@@ -1,7 +1,8 @@
 ﻿@model DemoBookApp.Models.AuthorModel
 @{
     ViewData["Title"] = "Details";
-    var temp = (Model.Gender == 1 ? "Male" : "Female");
+    
+    var temp = (DemoBookApp.Enums.Gender)Model.Gender;
 }
 
 <h1>Details Page</h1>
