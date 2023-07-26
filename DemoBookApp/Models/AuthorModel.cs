@@ -14,7 +14,7 @@ namespace DemoBookApp.Models
         public string Name { get; set; }
 
         [Required(ErrorMessage ="Gender is required")]
-        public int Gender { get; set; }= 0; 
+        public int Gender { get; set; } 
         public virtual ICollection<BookModel>? Books { get; set; }
     }
 }
