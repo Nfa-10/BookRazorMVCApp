@@ -64,7 +64,7 @@ namespace DemoBookApp.Controllers
             return View(authorModel);
         }
 
-      
+
 
         // GET: Author/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
@@ -82,10 +82,10 @@ namespace DemoBookApp.Controllers
             return View(authorModel);
         }
 
-        // POST: authorController/Edit/5
+        // POST: Author/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name")] AuthorModel authorModel)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Gender")] AuthorModel authorModel)
         {
             if (id != authorModel.Id)
             {
@@ -114,7 +114,6 @@ namespace DemoBookApp.Controllers
             }
             return View(authorModel);
         }
-
 
         // GET: Author/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
