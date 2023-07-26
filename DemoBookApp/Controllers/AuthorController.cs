@@ -139,7 +139,7 @@ namespace DemoBookApp.Controllers
         {
             if (_context.Author == null)
             {
-                return Problem("Entity set 'BookDbContext.AuthorModel'  is null.");
+                return Problem("There is no model database.");
             }
             var authorModel = await _context.Author.FindAsync(id);
             if (authorModel != null)
