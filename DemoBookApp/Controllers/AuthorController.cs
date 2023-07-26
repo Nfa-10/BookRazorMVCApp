@@ -1,8 +1,12 @@
-﻿using DemoBookApp.Data;
-using DemoBookApp.Models;
-using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using DemoBookApp.Data;
+using DemoBookApp.Models;
 
 namespace DemoBookApp.Controllers
 {
@@ -20,6 +24,26 @@ namespace DemoBookApp.Controllers
             return _context.Author != null ?
                         View(await _context.Author.ToListAsync()) :
                         Problem("Entity set 'BookDbContext.AuthorModel'  is null.");
+        }
+
+        // GET: Author/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Name,Gender")] AuthorModel authorModel)
+        {
+            if (ModelState.IsValid)
+            {
+                authorModel.Id = Guid.NewGuid();
+                _context.Add(authorModel);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(authorModel);
         }
 
         // GET: Author/Details/5
@@ -40,26 +64,7 @@ namespace DemoBookApp.Controllers
             return View(authorModel);
         }
 
-        // GET: Author/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: authorController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] AuthorModel authorModel)
-        {
-            if (ModelState.IsValid)
-            {
-                authorModel.Id = Guid.NewGuid();
-                _context.Add(authorModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(authorModel);
-        }
+      
 
         // GET: Author/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
