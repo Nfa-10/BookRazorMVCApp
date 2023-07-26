@@ -1,7 +1,7 @@
 ﻿@model DemoBookApp.Models.AuthorModel
 @{
     ViewData["Title"] = "Delete";
-    var temp = (Model.Gender == 1 ? "Male" : "Female");
+    var temp = (DemoBookApp.Enums.Gender) Model.Gender;
 }
 
 <h2>Delete Record</h2>
@@ -28,7 +28,7 @@
                         @Html.DisplayNameFor(model => model.Gender)
                     </dt>
                     <dd class="col-sm-3">
-                      @temp
+                        @temp
                     </dd>
              
                 </dl>
