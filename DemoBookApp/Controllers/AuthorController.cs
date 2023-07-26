@@ -24,6 +24,7 @@ namespace DemoBookApp.Controllers
             return _context.Author != null ?
                         View(await _context.Author.ToListAsync()) :
                         Problem("Entity set 'BookDbContext.AuthorModel'  is null.");
+
         }
 
         // GET: Author/Create
@@ -41,6 +42,7 @@ namespace DemoBookApp.Controllers
                 authorModel.Id = Guid.NewGuid();
                 _context.Add(authorModel);
                 await _context.SaveChangesAsync();
+                ViewBag.Gender=authorModel.Gender;
                 return RedirectToAction(nameof(Index));
             }
             return View(authorModel);
