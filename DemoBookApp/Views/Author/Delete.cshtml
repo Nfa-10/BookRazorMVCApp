@@ -1,6 +1,9 @@
 ﻿@model DemoBookApp.Models.AuthorModel
 @{
     ViewData["Title"] = "Delete";
+    var temp = (DemoBookApp.Enums.Gender)Model.Gender;
+
+
 }
 
 <h2>Delete Record</h2>
@@ -22,7 +25,15 @@
                         @Html.DisplayFor(model => model.Name)
                     </dd>
                 </dl>
-
+                <dl class="row">
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.Gender)
+                    </dt>
+                    <dd class="col-sm-3">
+                      @temp
+                    </dd>
+             
+                </dl>
                 <form asp-action="Delete">
                     <input type="hidden" asp-for="Id" />
                     <input type="submit" value="Delete" class="btn btn-danger" />
