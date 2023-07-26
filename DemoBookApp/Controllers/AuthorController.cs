@@ -42,7 +42,6 @@ namespace DemoBookApp.Controllers
                 authorModel.Id = Guid.NewGuid();
                 _context.Add(authorModel);
                 await _context.SaveChangesAsync();
-                ViewBag.Gender=authorModel.Gender;
                 return RedirectToAction(nameof(Index));
             }
             return View(authorModel);
