@@ -20,11 +20,20 @@ namespace DemoBookApp.Controllers
         }
 
         // GET: Book
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
             var bookDbContext = _context.Books.Include(b => b.Author);
+            var books = from m in bookDbContext
+                        select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(s => s.Title!.Contains(searchString));
+                return View(await books.ToListAsync());
+            }
             return View(await bookDbContext.ToListAsync());
         }
+
 
         // GET: Book/Details/5
         public async Task<IActionResult> Details(Guid? id)
