@@ -19,10 +19,25 @@ namespace DemoBookApp.Controllers
             _context = context;
         }
         // GET: authorController
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
+
+
+            var authors = from m in _context.Author
+                          select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                authors = authors.Where(s => s.Name!.Contains(searchString));
+                if (authors != null)
+                {
+                    ViewBag.Messsage = "Author Not Found";
+                    return View(await authors.ToListAsync());
+                }
+              
+            }
             return _context.Author != null ?
-                        View(await _context.Author.ToListAsync()) :
+                        View(await authors.ToListAsync()) :
                         Problem("Entity set 'BookDbContext.AuthorModel'  is null.");
 
         }

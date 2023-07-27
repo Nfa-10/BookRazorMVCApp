@@ -29,9 +29,13 @@ namespace DemoBookApp.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 books = books.Where(s => s.Title!.Contains(searchString));
-                return View(await books.ToListAsync());
+                if (!books.Any())
+                {
+                    ViewBag.Messsage = "Book Not Found";
+                    return View(await books.ToListAsync());
+                }
             }
-            return View(await bookDbContext.ToListAsync());
+            return View(await books.ToListAsync());
         }
 
 

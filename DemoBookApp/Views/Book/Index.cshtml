@@ -15,11 +15,15 @@
         Keyword: <input type="text" name="SearchString" placeholder="Type Keyword..." />
         <input class="btn btn-outline-dark" type="submit" value="Search" />
     </p>
+    <p style="color:darkred">@ViewBag.Messsage
+        
+    </p>
 </form>
 <table class="table">
     <thead>
         <tr>
             <th>
+                
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
