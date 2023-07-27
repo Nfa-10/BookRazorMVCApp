@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DemoBookApp.Data;
 using DemoBookApp.Models;
+using Microsoft.AspNetCore.Authentication;
 
 namespace DemoBookApp.Controllers
 {
@@ -20,21 +21,30 @@ namespace DemoBookApp.Controllers
         }
 
         // GET: Book
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(Guid? id, string searchString)
         {
+            List<AuthorModel> authorList = _context.Author.ToList();
+
+            ViewBag.Authors = new SelectList(authorList, "Id", "Name");
+
             var bookDbContext = _context.Books.Include(b => b.Author);
             var books = from m in bookDbContext
                         select m;
+            if (id != null)
+            {
+                books = books.Where(b => b.Author.Id == id);
+            }
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 books = books.Where(s => s.Title!.Contains(searchString));
                 if (!books.Any())
                 {
-                    ViewBag.Messsage = "Book Not Found";
+                    ViewBag.Message = "Book Not Found";
                     return View(await books.ToListAsync());
                 }
             }
+            ViewBag.SelectedAuthorId = id;
             return View(await books.ToListAsync());
         }
 
