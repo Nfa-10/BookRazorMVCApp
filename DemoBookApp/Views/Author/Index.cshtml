@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "List of Authors";
-
+    
 }
 
 <h4> Create New Author</h4>
@@ -11,7 +11,13 @@
 </form>
 <br />
 <h1>List of Authors</h1>
-
+<form asp-controller="Author" asp-action="Index">
+    <p>
+        Keyword: <input type="text" name="SearchString" placeholder="Type Keyword..." />
+        <input class="btn btn-outline-dark" type="submit" value="Search" />
+    </p>
+    <p style="color:darkred">@ViewBag.Messsage </p>
+</form>
 
 <table class="table">
     <thead>
