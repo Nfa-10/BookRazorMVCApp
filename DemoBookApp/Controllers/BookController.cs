@@ -31,9 +31,8 @@ namespace DemoBookApp.Controllers
 
             if (id != null || !String.IsNullOrEmpty(searchString))
             {
-                var bookDbContext = _context.Books.Include(b => b.Author).Where(b=>b.Author.Id == id || b.Title!.Contains(searchString));
-                var books = from m in bookDbContext
-                            select m;
+                var books = _context.Books.Include(b => b.Author).Where(b=>b.Author.Id == id || b.Title!.Contains(searchString));
+               
            
                 if (!books.Any())
                 {
