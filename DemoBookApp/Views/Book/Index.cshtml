@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<DemoBookApp.Models.BookModel>
-
 @{
     ViewData["Title"] = "Index";
 }
@@ -11,19 +10,28 @@
 <br />
 <h1>List of Books</h1>
 <form asp-controller="Book" asp-action="Index">
+    
     <p>
-        Keyword: <input type="text" name="SearchString" placeholder="Type Keyword..." />
+        Keyword: <input class="form-control" type="text" name="SearchString" placeholder="Type Keyword..." />
         <input class="btn btn-outline-dark" type="submit" value="Search" />
     </p>
-    <p style="color:darkred">@ViewBag.Messsage
-        
-    </p>
+    <p style="color:darkred">@ViewBag.Messsage </p>
+
+    <div>
+        <label>Select Author:</label>
+        <select name="id" asp-items=ViewBag.Authors class="form-control" onchange="this.form.submit()" onselect="" >
+            <option value="" >Select author</option>
+            <option value="all">All</option>
+        </select>
+       
+    </div>
+
 </form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                
+
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
