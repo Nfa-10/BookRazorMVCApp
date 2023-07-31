@@ -24,28 +24,26 @@ namespace DemoBookApp.Controllers
         public async Task<IActionResult> Index(Guid? id, string searchString)
         {
             List<AuthorModel> authorList = _context.Author.ToList();
-
+         
             ViewBag.Authors = new SelectList(authorList, "Id", "Name");
 
-            var bookDbContext = _context.Books.Include(b => b.Author);
-            var books = from m in bookDbContext
-                        select m;
-            if (id != null)
-            {
-                books = books.Where(b => b.Author.Id == id);
-            }
+           
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (id != null || !String.IsNullOrEmpty(searchString))
             {
-                books = books.Where(s => s.Title!.Contains(searchString));
+                var bookDbContext = _context.Books.Include(b => b.Author).Where(b=>b.Author.Id == id || b.Title!.Contains(searchString));
+                var books = from m in bookDbContext
+                            select m;
+           
                 if (!books.Any())
                 {
                     ViewBag.Message = "Book Not Found";
                     return View(await books.ToListAsync());
                 }
+                return View(await books.ToListAsync());
             }
             ViewBag.SelectedAuthorId = id;
-            return View(await books.ToListAsync());
+            return View(await _context.Books.ToListAsync());
         }
 
 

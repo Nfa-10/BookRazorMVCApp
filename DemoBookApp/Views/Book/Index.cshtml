@@ -19,9 +19,9 @@
 
     <div>
         <label>Select Author:</label>
-        <select name="id" asp-items=ViewBag.Authors class="form-control" onchange="this.form.submit()">
+        <select name="id" asp-items=ViewBag.Authors class="form-control" onchange="this.form.submit()" onselect="" >
             <option value="" >Select author</option>
-            <option value="all" selected>All</option>
+            <option value="all">All</option>
         </select>
        
     </div>
@@ -79,4 +79,3 @@
         }
     </tbody>
 </table>
-
