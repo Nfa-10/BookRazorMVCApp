@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-
+using DemoBookApp.Audit;
 namespace DemoBookApp.Models
 {
-    public class BookModel
+    public class BookModel:Auditable
     {
 
         [Key]
