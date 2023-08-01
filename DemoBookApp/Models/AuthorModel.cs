@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DemoBookApp.Audit;
 
 namespace DemoBookApp.Models
 {
-    public class AuthorModel
+    public class AuthorModel: Auditable
     {
         public Guid Id
         {

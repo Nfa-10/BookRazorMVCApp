@@ -29,6 +29,7 @@ namespace DemoBookApp.Controllers
 
            
 
+
             if (id != null || !String.IsNullOrEmpty(searchString))
             {
                 var books = _context.Books.Include(b => b.Author).Where(b=>b.Author.Id == id || b.Title!.Contains(searchString));
