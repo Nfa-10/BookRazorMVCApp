@@ -1,0 +1,39 @@
+﻿@model DemoBookApp.Models.UserModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Sign Up</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h5> Enter Credentials</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="mb-3">
+                        <label asp-for="emailOrUsername" class="control-label">Username</label>
+                        <input asp-for="emailOrUsername" class="form-control" />
+                        <span asp-validation-for="emailOrUsername" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="password" class="control-label">Password </label>
+                        <input  asp-for="password" type="password" class="form-control" />
+                        <span asp-validation-for="password" class="text-danger"></span>
+                    </div>
+                   
+                    <div class="mb-3">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+            </div>
+        </div>
+    </div>
+</div>
