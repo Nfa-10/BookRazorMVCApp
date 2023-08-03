@@ -44,12 +44,11 @@ namespace DemoBookApp.Controllers
         public async Task<IActionResult> Login([Bind("userId, emailOrUsername, password")] UserModel user)
         {
             var listOfUsers = _context.Users.SingleOrDefault(m => m.emailOrUsername == user.emailOrUsername);
-            IActionResult result;
+            IActionResult result=View(user);
 
             if (listOfUsers == null)
             {
-                ViewBag.Message = "Invalid Credentials ";
-                result = View(user);
+                ModelState.AddModelError("", "No such user exists");
             }
             else
             {
@@ -66,7 +65,7 @@ namespace DemoBookApp.Controllers
                 }
                 else
                 {
-                    result = RedirectToAction(nameof(UserNotFound));
+                    ModelState.AddModelError("", "Invalid Credentials");
                 }
             }
 
