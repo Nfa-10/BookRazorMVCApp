@@ -19,16 +19,12 @@ namespace DemoBookApp.Controllers
         {
             _context = context;
         }
-
         // GET: Book
         public async Task<IActionResult> Index(Guid? id, string searchString)
         {
             List<AuthorModel> authorList = _context.Author.ToList();
          
             ViewBag.Authors = new SelectList(authorList, "Id", "Name");
-
-           
-
 
             if (id != null || !String.IsNullOrEmpty(searchString))
             {
@@ -62,16 +58,13 @@ namespace DemoBookApp.Controllers
             {
                 return NotFound();
             }
-
             return View(bookModel);
         }
-
         // GET: Book/Create
         public IActionResult Create()
         {
             ViewData["AuthorID"] = new SelectList(_context.Author, "Id", "Name");
             return View();
-
         }
 
         // POST: Book/Create

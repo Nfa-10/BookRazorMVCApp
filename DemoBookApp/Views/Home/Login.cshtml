@@ -4,7 +4,7 @@
 }
 
 <h1>Login</h1>
-<br/>
+<br />
 <div class="row">
     <div class="col-6">
         <div class="card">
@@ -14,15 +14,17 @@
             <div class="card-body">
                 <form method="post">
 
-                    <input class="form-control mb-3" type="text" name="emailOrUsername" placeholder="Email or Username" />
-                    <input class="form-control" type="password" name="password" placeholder="Password" />
+                    <input class="form-control mb-3" type="text" asp-for="emailOrUsername" placeholder="Email or Username" />
+                    <span asp-validation-for="emailOrUsername" class="text-danger"></span>
+                    <input asp-for="password" class="form-control" type="password" placeholder="Password" />
+                    <span asp-validation-for="password" class="text-danger"></span>
                     <br />
                     <button class="btn btn-success">Log In</button>
 
                 </form>
             </div>
             <div class="card-footer">
-                <p style="color:darkred">@ViewBag.Messsage </p>
+                <div asp-validation-summary="All" class="text-danger"></div>
             </div>
         </div>
     </div>
