@@ -20,7 +20,6 @@ namespace DemoBookApp.Data
                 .WithMany(s => s.Books)
                 .HasForeignKey(s => s.AuthorID)
                 .OnDelete(DeleteBehavior.NoAction);
-
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -73,6 +72,8 @@ namespace DemoBookApp.Data
 
         public DbSet<BookModel> Books { get; set; }
         public DbSet<AuthorModel> Author { get; set; } 
+
+        public DbSet<UserModel> Users { get; set; }
 
 
 
