@@ -25,7 +25,7 @@ namespace DemoBookApp.Data
         public DbSet<BookModel> Books { get; set; }
         public DbSet<AuthorModel> Author { get; set; } 
 
-        public DbSet<UserModel> UserList { get; set; }
+        public DbSet<UserModel> Users { get; set; }
 
 
 

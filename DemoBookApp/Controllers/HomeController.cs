@@ -43,45 +43,50 @@ namespace DemoBookApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([Bind("userId, emailOrUsername, password")] UserModel user)
         {
-            var listOfUsers = _context.UserList.SingleOrDefault(m => m.emailOrUsername == user.emailOrUsername);
+            var listOfUsers = _context.Users.SingleOrDefault(m => m.emailOrUsername == user.emailOrUsername);
+            IActionResult result;
+
             if (listOfUsers == null)
             {
                 ViewBag.Message = "Invalid Credentials ";
-                return View(user);
+                result = View(user);
             }
             else
             {
-                
-                bool isPasswordValid = BC.Verify(user.password,listOfUsers.password);
+                bool isPasswordValid = BC.Verify(user.password, listOfUsers.password);
                 if (isPasswordValid)
                 {
                     var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.emailOrUsername) };
                     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var principal = new ClaimsPrincipal(identity);
                     var props = new AuthenticationProperties();
-                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props)
-                        .Wait();
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props);
 
-                    return RedirectToAction("Index", "Book");
+                    result = RedirectToAction("Index", "Book");
                 }
-                else return RedirectToAction(nameof(UserNotFound));
+                else
+                {
+                    result = RedirectToAction(nameof(UserNotFound));
+                }
             }
-            
+
+            return result;
         }
         //Create a User Account
         [HttpPost]
         public async Task<IActionResult> Create([Bind("userId, emailOrUsername, password")] UserModel user)
         {
+            IActionResult result= View(user);
             if (ModelState.IsValid)
             {
                 user.userId = Guid.NewGuid();
                 user.password = BC.HashPassword(user.password);
                 _context.Add(user);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                result= RedirectToAction(nameof(Index));
             }
 
-            return View(user);
+            return result;
         }
 
         [HttpPost]
