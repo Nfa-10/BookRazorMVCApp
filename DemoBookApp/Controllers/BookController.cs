@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DemoBookApp.Constants;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -33,7 +34,7 @@ namespace DemoBookApp.Controllers
            
                 if (!books.Any())
                 {
-                    ViewBag.Message = "Book Not Found";
+                    ViewBag.Message = Message.NO_BOOK;
                     return View(await books.ToListAsync());
                 }
                 return View(await books.ToListAsync());
@@ -68,8 +69,7 @@ namespace DemoBookApp.Controllers
         }
 
         // POST: Book/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         public async Task<IActionResult> Create([Bind("BookId,Title,Edition,Price,dateOfPublishing,AuthorID")] BookModel bookModel)
         {
@@ -102,8 +102,6 @@ namespace DemoBookApp.Controllers
         }
 
         // POST: Book/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("BookId,Title,Edition,Price,dateOfPublishing,AuthorID")] BookModel bookModel)
@@ -163,7 +161,7 @@ namespace DemoBookApp.Controllers
         {
             if (_context.Books == null)
             {
-                return Problem("Entity set 'BookDbContext.Books'  is null.");
+                return Problem(Message.NO_BOOK_CONTEXT);
             }
             var bookModel = await _context.Books.FindAsync(id);
             if (bookModel != null)
