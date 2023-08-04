@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Scripting;
+using DemoBookApp.Constants;
 using System.Security.Claims;
 using BC = BCrypt.Net.BCrypt;
 using UserModel = DemoBookApp.Models.UserModel;
@@ -48,7 +49,7 @@ namespace DemoBookApp.Controllers
 
             if (listOfUsers == null)
             {
-                ModelState.AddModelError("", "No such user exists");
+                ModelState.AddModelError("",Message.NO_USER);
             }
             else
             {
@@ -65,7 +66,7 @@ namespace DemoBookApp.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalid Credentials");
+                    ModelState.AddModelError("", Message.INVALID_CRED);
                 }
             }
 

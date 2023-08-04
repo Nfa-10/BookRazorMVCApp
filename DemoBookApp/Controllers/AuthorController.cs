@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using DemoBookApp.Constants;
 using DemoBookApp.Data;
 using DemoBookApp.Models;
 
@@ -31,14 +32,14 @@ namespace DemoBookApp.Controllers
                 authors = authors.Where(s => s.Name!.Contains(searchString));
                 if (authors != null)
                 {
-                    ViewBag.Messsage = "Author Not Found";
+                    ViewBag.Messsage = Message.NO_AUTHOR;
                     return View(await authors.ToListAsync());
                 }
               
             }
             return _context.Author != null ?
                         View(await authors.ToListAsync()) :
-                        Problem("Entity set 'BookDbContext.AuthorModel'  is null.");
+                        Problem(Message.NO_AUTHOR_MODEL);
 
         }
 

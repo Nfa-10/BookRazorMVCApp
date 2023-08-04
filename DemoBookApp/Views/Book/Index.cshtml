@@ -4,26 +4,45 @@
 }
 
 <h4> Add New Book</h4>
-<form>
-    <input asp-action="Create" type="submit" value="Create" class="btn btn-outline-primary" />
-</form>
+
+
+<a asp-controller="Author" asp-action="Index" type="submit" value="Show Authors" class="btn btn-outline-primary">Show Authors</a>
+<a asp-action="Create" type="submit" value="Create" class="btn btn-outline-primary">Create</a>
+
+<div class="col-md-10 text-right">
+    <form method="post" asp-controller="Home" asp-action="Logout">
+
+        <button class="btn float-lg-end btn-info">Logout</button>
+
+
+    </form>
+
+</div>
+
 <br />
 <h1>List of Books</h1>
-<form asp-controller="Book" asp-action="Index">
-    
-    <p>
-        Keyword: <input class="form-control" type="text" name="SearchString" placeholder="Type Keyword..." />
-        <input class="btn btn-outline-dark" type="submit" value="Search" />
-    </p>
-    <p style="color:darkred">@ViewBag.Messsage </p>
+<hr />
 
+
+<form asp-controller="Book" asp-action="Index" class="form-check-inline">
+
+    <div class="input-group mb-3">
+        Keyword:&nbsp <input class="form-control" type="text" name="SearchString" placeholder="Type Keyword..." />
+
+        <div class="input-group-append ">
+            <button class="btn btn-outline-dark" type="submit" value="Search">Search</button>
+        </div>
+
+        <p style="color:darkred">@ViewBag.Messsage </p>
+    </div>
+    <br />
     <div>
         <label>Select Author:</label>
-        <select name="id" asp-items=ViewBag.Authors class="form-control" onchange="this.form.submit()" onselect="" >
-            <option value="" >Select author</option>
+        <select name="id" asp-items=ViewBag.Authors class="form-control" onchange="this.form.submit()" onselect="">
+            <option value="" selected>Select author</option>
             <option value="all">All</option>
         </select>
-       
+
     </div>
 
 </form>
@@ -69,11 +88,9 @@
                     @Html.DisplayFor(modelItem => item.Author.Name)
                 </td>
                 <td>
-                    <form>
-                        <input asp-action="Edit" asp-route-id="@item.BookId" type="submit" value="Edit" class="btn btn-dark" /> |
-                        <input asp-action="Details" asp-route-id="@item.BookId" type="submit" value="Show Details" class="btn btn-primary" /> |
-                        <input asp-action="Delete" asp-route-id="@item.BookId" type="submit" value="Delete" class="btn btn-danger" /> |
-                    </form>
+                    <a asp-action="Edit" asp-route-id="@item.BookId" type="submit" value="Edit" class="btn btn-dark">Edit </a>
+                    <a asp-action="Details" asp-route-id="@item.BookId" type="submit" value="Show Details" class="btn btn-primary">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.BookId" type="submit" value="Delete" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
